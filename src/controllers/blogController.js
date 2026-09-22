@@ -57,6 +57,9 @@ const updateBlog = async (req, res) => {
             blog.authorName = req.body.authorName || blog.authorName;
             blog.authorImage = req.body.authorImage || blog.authorImage;
             blog.readTime = req.body.readTime || blog.readTime;
+            if (req.body.youtubeUrl !== undefined) {
+                blog.youtubeUrl = req.body.youtubeUrl;
+            }
             
             // If a new image was uploaded, update the URL
             if (req.file) {

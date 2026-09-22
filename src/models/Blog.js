@@ -28,6 +28,10 @@ const blogSchema = new mongoose.Schema({
     readTime: {
         type: String, // e.g., "6 min read"
         required: true
+    },
+    youtubeUrl: {
+        type: String,
+        default: ""
     }
 }, { timestamps: true });
 
