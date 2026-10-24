@@ -17,6 +17,10 @@ const projectSchema = new mongoose.Schema({
         type: String, 
         required: true 
     },
+    gallery: {
+        type: [String],
+        default: []
+    },
     title: { 
         type: String, 
         required: true 
@@ -38,9 +42,9 @@ const projectSchema = new mongoose.Schema({
         type: String, 
         default: "#" 
     },
-    githubLink: { 
-        type: String, 
-        default: "#" 
+    appStoreLink: {
+        type: String,
+        default: "#"
     }
 }, { timestamps: true });
 

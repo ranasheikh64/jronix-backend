@@ -45,26 +45,36 @@ const createProject = async (req, res) => {
 // @desc    Update a project
 // @route   PUT /api/projects/:id
 const updateProject = async (req, res) => {
+    console.log("=== UPDATE PROJECT INITIATED ===");
+    console.log("Project ID:", req.params.id);
+    console.log("Incoming req.body:", JSON.stringify(req.body, null, 2));
     try {
         const project = await Project.findById(req.params.id);
         
         if (project) {
-            project.category = req.body.category || project.category;
-            project.typeBadge = req.body.typeBadge || project.typeBadge;
+            console.log("Found existing project:", project.title);
+            project.category = req.body.category !== undefined ? req.body.category : project.category;
+            project.typeBadge = req.body.typeBadge !== undefined ? req.body.typeBadge : project.typeBadge;
             project.isFeatured = req.body.isFeatured !== undefined ? req.body.isFeatured : project.isFeatured;
-            project.image = req.body.image || project.image;
-            project.title = req.body.title || project.title;
-            project.description = req.body.description || project.description;
-            project.stats = req.body.stats || project.stats;
-            project.techStack = req.body.techStack || project.techStack;
-            project.link = req.body.link || project.link;
+            project.image = req.body.image !== undefined ? req.body.image : project.image;
+            project.gallery = req.body.gallery !== undefined ? req.body.gallery : project.gallery;
+            project.title = req.body.title !== undefined ? req.body.title : project.title;
+            project.description = req.body.description !== undefined ? req.body.description : project.description;
+            project.stats = req.body.stats !== undefined ? req.body.stats : project.stats;
+            project.techStack = req.body.techStack !== undefined ? req.body.techStack : project.techStack;
+            project.link = req.body.link !== undefined ? req.body.link : project.link;
+            project.appStoreLink = req.body.appStoreLink !== undefined ? req.body.appStoreLink : project.appStoreLink;
             
             const updatedProject = await project.save();
+            console.log("=== UPDATE SUCCESSFUL ===");
+            console.log("Saved Project Gallery:", updatedProject.gallery);
             res.status(200).json(updatedProject);
         } else {
+            console.log("=== UPDATE FAILED: PROJECT NOT FOUND ===");
             res.status(404).json({ message: 'Project not found' });
         }
     } catch (error) {
+        console.log("=== UPDATE ERROR ===", error.message);
         res.status(500).json({ message: error.message });
     }
 };
